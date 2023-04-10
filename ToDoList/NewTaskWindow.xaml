@@ -1,0 +1,40 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDoList"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ToDoList.NewTaskWindow"
+        mc:Ignorable="d"
+        Title="Нова задача" Height="350" Width="300" ResizeMode="CanResize" MinWidth="300">
+    <Grid UseLayoutRounding="False" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF5C629A" Offset="1"/>
+                <GradientStop Color="#FF989AAF"/>
+                <GradientStop Color="#FF989AAF"/>
+                <GradientStop Color="#FF8689A8"/>
+                <GradientStop Color="#FF575B8E"/>
+                <GradientStop Color="#FF4A4B56"/>
+                <GradientStop Color="#FF4F526B"/>
+                <GradientStop Color="#FF2849D2" Offset="0.508"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <Button x:Name="SaveButton" Content="Зберегти" OpacityMask="Black" Background="#FF7D89F1" BorderThickness="2,2,2,2" FontFamily="{DynamicResource MaterialDesignFont}" BorderBrush="#FF231F54" Padding="8,1,8,1" FontStyle="Italic" Foreground="#99FFFFFF"  Margin="12,4,162,4" RenderTransformOrigin="-0.391,4.563" Grid.Row="1" Click="SaveButton_Click" HorizontalAlignment="Left"/>
+        <Button x:Name="CancelButton" Content="Відмінити" OpacityMask="Black" Background="#FF7D89F1" BorderThickness="2,2,2,2" FontFamily="{DynamicResource MaterialDesignFont}" BorderBrush="#FF231F54" Padding="8,1,8,1" FontStyle="Italic" Foreground="#99FFFFFF"  Margin="162,4,12,4" RenderTransformOrigin="-0.391,4.563" Grid.Row="1" Click="CancelButton_Click" HorizontalAlignment="Right"/>
+        <StackPanel Margin="12,12,12,0" Background="#FFC4E0F1" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" UseLayoutRounding="False" Cursor="Pen" >
+            <TextBlock TextWrapping="Wrap" FontFamily="{DynamicResource MaterialDesignFont}" FontSize="16" FontWeight="Bold" FontStyle="Italic" TextAlignment="Center"><Run Text="Назва зада"/><Run Language="uk-ua" Text="чі"/></TextBlock>
+            <TextBox x:Name="NameTextBox" Margin="60,0,60,4" FontFamily="{DynamicResource MaterialDesignFont}" FontStyle="Italic" SelectionOpacity="0" HorizontalContentAlignment="Left" Cursor="Pen" TextWrapping="Wrap" FontSize="14" TextAlignment="Center"/>
+            <CheckBox x:Name="IsCompletedCheckBox" Content="Задача виконана" Margin="10,8,0,4" FontFamily="{DynamicResource MaterialDesignFont}" Cursor="Pen" FontSize="14" FontStyle="Italic" IsChecked="False"/>
+            <TextBlock TextWrapping="Wrap" Margin="10,0,0,0" FontFamily="{DynamicResource MaterialDesignFont}" FontSize="14" FontStyle="Italic" HorizontalAlignment="Left"><Run Text="Опис задач"/><Run Language="uk-ua" Text="і"/></TextBlock>
+            <TextBox x:Name="DescriptionTextBox" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="{DynamicResource MaterialDesignFont}" FontSize="14" Cursor="Pen" Margin="10,0,10,0"/>
+        </StackPanel>
+
+    </Grid>
+</Window>
