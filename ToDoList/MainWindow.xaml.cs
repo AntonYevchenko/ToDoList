@@ -79,14 +79,8 @@ namespace ToDoList
 		{
 			CompleteButton.IsEnabled = false;
 
-			ObservableCollection<Task> filtered = new();
-
-			for (int i = 0; i < tasks.Count; i++)
-			{
-				Task current = tasks[i];
-				if (current.IsCompleted)
-					filtered.Add(current);
-			}
+			ObservableCollection<Task> filtered = new(tasks.Where(x=>x.IsCompleted));
+			
 			ToDoListBox.ItemsSource = filtered;
 		}
 
@@ -94,15 +88,8 @@ namespace ToDoList
 		{
 			CompleteButton.IsEnabled = true;
 
-			ObservableCollection<Task> filtered = new();
+			ObservableCollection<Task> filtered = new(tasks.Where(x => !x.IsCompleted));
 
-			for (int i = 0; i < tasks.Count; i++)
-			{
-				Task current = tasks[i];
-				if (!current.IsCompleted)
-					filtered.Add(current);
-
-			}
 		ToDoListBox.ItemsSource = filtered;
 		}
 
