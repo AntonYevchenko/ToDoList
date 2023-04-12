@@ -18,8 +18,8 @@ namespace ToDoList
 
 		public MainWindow()
 		{
-			InitializeComponent();	
-			
+			InitializeComponent();
+
 			ToDoListBox.DisplayMemberPath = "Name";
 		}
 
@@ -47,20 +47,33 @@ namespace ToDoList
 		private void DeleteButton_Click(object sender, RoutedEventArgs e)
 		{
 			int index = ToDoListBox.SelectedIndex;
+
 			if (index != -1)
+			{
 				tasks.RemoveAt(index);
+				UpdateToDoList();
+			}
 		}
 
 		private void CompleteButton_Click(object sender, RoutedEventArgs e)
 		{
 			int index = ToDoListBox.SelectedIndex;
 			if (index != -1)
-				tasks[index].IsCompleted = true;
+			{
+				for (int i = index; i < tasks.Count; i++)
+				{
+					if (!tasks[i].IsCompleted)
+					{
+						tasks[i].IsCompleted = true;
+					}
+				}
+				UpdateToDoList();
+			}
 		}
 
 		private void AllRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			CompleteButton.IsEnabled = true;			
+			CompleteButton.IsEnabled = false;
 
 			ToDoListBox.ItemsSource = tasks;
 		}
@@ -68,8 +81,8 @@ namespace ToDoList
 
 		private void CompletedRadioButton_Checked(object sender, RoutedEventArgs e)
 		{
-			CompleteButton.IsEnabled = false;			
-			
+			CompleteButton.IsEnabled = false;
+
 			ToDoListBox.ItemsSource = tasks.Where(x => x.IsCompleted);
 		}
 
@@ -77,19 +90,13 @@ namespace ToDoList
 		{
 			CompleteButton.IsEnabled = true;
 
-			if (tasks.Any(x => !x.IsCompleted))
-			{
-				Task lastUncompletedTask = tasks.Last(x => !x.IsCompleted);
-				lastUncompletedTask.IsCompleted = true;
-			}
-
 			ToDoListBox.ItemsSource = tasks.Where(x => !x.IsCompleted);
 		}
 
 		string fileName = "data.bin";
 		private void Window_Closed(object sender, EventArgs e)
 		{
-			#pragma warning disable SYSLIB0011
+#pragma warning disable SYSLIB0011
 			BinaryFormatter formatter = new();
 			Stream file = File.OpenWrite(fileName);
 			formatter.Serialize(file, tasks);
@@ -102,9 +109,24 @@ namespace ToDoList
 			{
 				BinaryFormatter formatter = new();
 				Stream file = File.OpenRead(fileName);
-				tasks = (ObservableCollection<Task>) formatter.Deserialize(file);	
+				tasks = (ObservableCollection<Task>) formatter.Deserialize(file);
 				file.Close();
 				ToDoListBox.ItemsSource = tasks;
+			}
+		}
+		private void UpdateToDoList()
+		{
+			if (AllRadioButton.IsChecked == true)
+			{
+				ToDoListBox.ItemsSource = tasks;
+			}
+			else if (CompletedRadioButton.IsChecked == true)
+			{
+				ToDoListBox.ItemsSource = tasks.Where(x => x.IsCompleted);
+			}
+			else if (ToDoRadioButton.IsChecked == true)
+			{
+				ToDoListBox.ItemsSource = tasks.Where(x => !x.IsCompleted);
 			}
 		}
 	}
