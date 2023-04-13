@@ -46,27 +46,20 @@ namespace ToDoList
 
 		private void DeleteButton_Click(object sender, RoutedEventArgs e)
 		{
-			int index = ToDoListBox.SelectedIndex;
+			Task selectedTask = (Task) ToDoListBox.SelectedItem;
 
-			if (index != -1)
+			if (selectedTask != null)
 			{
-				tasks.RemoveAt(index);
+				tasks.Remove(selectedTask);
 				UpdateToDoList();
 			}
 		}
 
 		private void CompleteButton_Click(object sender, RoutedEventArgs e)
 		{
-			int index = ToDoListBox.SelectedIndex;
-			if (index != -1)
+			if (ToDoListBox.SelectedItem is Task selectedTask)
 			{
-				for (int i = index; i < tasks.Count; i++)
-				{
-					if (!tasks[i].IsCompleted)
-					{
-						tasks[i].IsCompleted = true;
-					}
-				}
+				selectedTask.IsCompleted = true;
 				UpdateToDoList();
 			}
 		}
